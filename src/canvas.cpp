@@ -81,12 +81,12 @@ void canvas::drawLine(point a, point b)
    int width = b.x-a.x;
    int height = b.y-a.y;
    point c; 
-   if(height < width) { 
-      if(a.x > b.x) { //a not left-most point so switch 
-		c = a;
-		a = b;
-		b = c;
-	  }
+   	if(height < width) { 
+    	if(a.x > b.x) { //a not left-most point so switch 
+			c = a;
+			a = b;
+			b = c;
+		}
 		int y1 = a.y;
    		int w1 = b.x-a.x;
    		int h1 = b.y-a.y;
@@ -100,47 +100,46 @@ void canvas::drawLine(point a, point b)
    		}
    		int f = 2*h1 - w1;
 
-   	for(int x = a.x; x <= b.x; x++) {
-      t1 = (x-a.x)/(float)(b.x-a.x);
-      color = interpolateL(a.color, b.color, t1);
-      myCanvas.set(y1,x,color);
-      if(f > 0) {
-         y1 += inc1;
-         f += 2*(h1-w1);
-      } else {
-         f += 2*h1;
-      }
-   }
-}  	else { //height more than width
-    	if(a.y > b.y) { //a not left-most point so switch
-    		c = a;
-			a = b;
-			b = c;
-      	} 
-		int x2 = a.x;
-   		int w2 = b.x - a.x;
-   		int h2 = b.y - a.y;
-   		int inc2 = 1;
-   		float t2;
-   		ppm_pixel color;
-   		if(w2 < 0) {
-      		inc2 = -1;
-      		w2 = -w2;
-   		}
-   		int f2 = 2*w2 - h2;
-
-   		for (int y = a.y; y <= b.y; y++){
-      		t2 = (y-a.y)/(float)(b.y-a.y);
-      		color = interpolateL(a.color, b.color, t2);
-      		myCanvas.set(y,x2,color);
-      		if(f2 > 0) { 
-        	x2 += inc2;
-        	f2 += 2*(w2-h2);
+   		for(int x = a.x; x <= b.x; x++) {
+      		t1 = (x-a.x)/(float)(b.x-a.x);
+      		color = interpolateL(a.color, b.color, t1);
+      		myCanvas.set(y1,x,color);
+      		if(f > 0) {
+         		y1 += inc1;
+         		f += 2*(h1-w1);
       		} else {
-        		f2 += 2*w2;
+         		f += 2*h1;
       		}
    		}
-    }
+	}  	else { //height more than width
+    		if(a.y > b.y) { //a not left-most point so switch
+    			c = a;
+				a = b;
+				b = c;
+      		} 
+			int x2 = a.x;
+   			int w2 = b.x - a.x;
+   			int h2 = b.y - a.y;
+   			int inc2 = 1;
+   			float t2;
+   			ppm_pixel color;
+   			if(w2 < 0) {
+      			inc2 = -1;
+      			w2 = -w2;
+   			}
+   			int f2 = 2*w2 - h2;
+			for (int y = a.y; y <= b.y; y++){
+      			t2 = (y-a.y)/(float)(b.y-a.y);
+      			color = interpolateL(a.color, b.color, t2);
+      			myCanvas.set(y,x2,color);
+      			if(f2 > 0) { 
+        			x2 += inc2;
+        			f2 += 2*(w2-h2);
+      			} else {
+        			f2 += 2*w2;
+      			}
+   			}
+    	}
 }
 
 ppm_pixel canvas::interpolateL(ppm_pixel c1, ppm_pixel c2, float t)
@@ -180,18 +179,17 @@ void canvas::barycentricFill(point a, point b, point c)
    int max_x = max(max(a.x, b.x), c.x);
    int min_y = min(min(a.y, b.y), c.y);
    int max_y = max(max(a.y, b.y), c.y);
-   for(int row = min_y; row < max_y; row++) {
-      for(int col = min_x; col < max_x; col++) {
-         p = {col,row,ppm_pixel{0,0,0}};
+   for(int ht = min_y; ht < max_y; ht++) {
+      for(int wd = min_x; wd < max_x; wd++) {
          alpha = implicitEq(b,c,p)/(float)_alpha;
          beta = implicitEq(a,c,p)/(float)_beta;
          gamma = implicitEq(a,b,p)/(float)_gamma;
+		 p = {col,row,ppm_pixel{0,0,0}};
          if(alpha >= 0 && beta >= 0 && gamma >= 0) { //pixel inside triangle
             point offscreenPoint = {-1,-1,ppm_pixel{0,0,0}};
-            //handles adjacent edges 
-            if(0 < alpha || 0 < implicitEq(a,c,offscreenPoint)*_alpha || 0 < implicitEq(a,b,offscreenPoint)*_alpha || 0 < implicitEq(b,c,offscreenPoint)*_alpha){
+            if(0 < alpha || 0 < implicitEq(a,c,offscreenPoint)*_alpha || 0 < implicitEq(a,b,offscreenPoint)*_alpha || 0 < implicitEq(b,c,offscreenPoint)*_alpha) //adjacent edge{
                color = interpolateT(a.color, b.color, c.color, alpha, beta, gamma);
-               myCanvas.set(row,col,color);
+               myCanvas.set(ht,wd,color);
             }
          }
       }

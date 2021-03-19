@@ -45,7 +45,7 @@ canvas-drawer/build $ ../bin/draw_art
 
 ## Supported primitives
 
-TODO: Document the custom primitives supported by your canvas class
+All base functions working:
 
 ![diagonal-line-1](https://user-images.githubusercontent.com/79232961/111728076-82496800-8842-11eb-9d45-314cfc5bc945.png)
 ![diagonal-line-2](https://user-images.githubusercontent.com/79232961/111728077-82e1fe80-8842-11eb-9be3-1d08501ffcbc.png)
@@ -59,11 +59,16 @@ TODO: Document the custom primitives supported by your canvas class
 ![w-lessthan-h-line-1](https://user-images.githubusercontent.com/79232961/111728088-837a9500-8842-11eb-81c3-267d6932a151.png)
 ![w-lessthan-h-line-2](https://user-images.githubusercontent.com/79232961/111728089-837a9500-8842-11eb-96e7-862288264ebd.png)
 
+TODO: Document the custom primitives supported by your canvas class
+
+![rectangle](https://user-images.githubusercontent.com/79232961/111728085-82e1fe80-8842-11eb-8992-d3f48c5a3c95.png)
+![triangle](https://user-images.githubusercontent.com/79232961/111728086-837a9500-8842-11eb-93bc-b9218060b6fb.png)
+
 
 ## Results
 
 TODO: Show artworks using your class
 
 
-![rectangle](https://user-images.githubusercontent.com/79232961/111728085-82e1fe80-8842-11eb-8992-d3f48c5a3c95.png)
+
 ![artwork](https://user-images.githubusercontent.com/79232961/111728075-82496800-8842-11eb-8b69-3c45b0f6646a.png)

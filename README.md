@@ -46,6 +46,7 @@ canvas-drawer/build $ ../bin/draw_art
 ## Supported primitives
 
 TODO: Document the custom primitives supported by your canvas class
+
 ![diagonal-line-1](https://user-images.githubusercontent.com/79232961/111728076-82496800-8842-11eb-9d45-314cfc5bc945.png)
 ![diagonal-line-2](https://user-images.githubusercontent.com/79232961/111728077-82e1fe80-8842-11eb-9be3-1d08501ffcbc.png)
 ![h-lessthan-w-line-1](https://user-images.githubusercontent.com/79232961/111728078-82e1fe80-8842-11eb-9720-127048a44c8e.png)
@@ -62,5 +63,6 @@ TODO: Document the custom primitives supported by your canvas class
 ## Results
 
 TODO: Show artworks using your class
+
 ![rectangle](https://user-images.githubusercontent.com/79232961/111728085-82e1fe80-8842-11eb-8992-d3f48c5a3c95.png)
 ![artwork](https://user-images.githubusercontent.com/79232961/111728075-82496800-8842-11eb-8b69-3c45b0f6646a.png)

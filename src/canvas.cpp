@@ -1,5 +1,6 @@
 /*
 Haiqa Kamran
+Last Modified: 18 March, 2021
 */
 
 #include "canvas.h"
@@ -59,21 +60,6 @@ void canvas::background(unsigned char r, unsigned char g, unsigned char b)
     	myCanvas.set(h, w, ppm_pixel{r,g,b});
       	}
    }
-}
-
-point clamp(point p, int w, int h){
-	if (p.x > w-1){	
-		p.x = w-1;
-	}
-	else if(p.x < 0){
-		p.x = 0;
-	}
-	else if(p.y > h-1){
-		p.y = h-1;
-	}
-	else if (p.y < 0){
-		p.y = 0;
-	}
 }
 
 void canvas::drawLine(point a, point b) 
@@ -171,24 +157,27 @@ void canvas::barycentricFill(point a, point b, point c)
 {
    point p;
    ppm_pixel color;
-   float alpha, beta, gamma;
-   int _alpha = implicitEq(b,c,a);
-   int _beta = implicitEq(a,c,b);
-   int _gamma = implicitEq(a,b,c);
+   int alpha = implicitEq(b,c,a);
+   int beta = implicitEq(a,c,b);
+   int gamma = implicitEq(a,b,c);
    int min_x = min(min(a.x, b.x), c.x);
    int max_x = max(max(a.x, b.x), c.x);
    int min_y = min(min(a.y, b.y), c.y);
    int max_y = max(max(a.y, b.y), c.y);
    for(int ht = min_y; ht < max_y; ht++) {
       for(int wd = min_x; wd < max_x; wd++) {
-         alpha = implicitEq(b,c,p)/(float)_alpha;
-         beta = implicitEq(a,c,p)/(float)_beta;
-         gamma = implicitEq(a,b,p)/(float)_gamma;
-		 p = {col,row,ppm_pixel{0,0,0}};
-         if(alpha >= 0 && beta >= 0 && gamma >= 0) { //pixel inside triangle
-            point offscreenPoint = {-1,-1,ppm_pixel{0,0,0}};
-            if(0 < alpha || 0 < implicitEq(a,c,offscreenPoint)*_alpha || 0 < implicitEq(a,b,offscreenPoint)*_alpha || 0 < implicitEq(b,c,offscreenPoint)*_alpha) //adjacent edge{
-               color = interpolateT(a.color, b.color, c.color, alpha, beta, gamma);
+		 p = {wd,ht,ppm_pixel{0,0,0}};
+         if(implicitEq(b,c,p)/(float)alpha >= 0 && 
+		 	implicitEq(a,c,p)/(float)beta >= 0 && 
+			implicitEq(a,b,p)/(float)gamma >= 0) { //pixel inside triangle
+            point out = {-1,-1,ppm_pixel{0,0,0}};
+            if(0 < alpha || 0 < implicitEq(a,c,out)*alpha || 
+							0 < implicitEq(a,b,out)*alpha || 
+							0 < implicitEq(b,c,out)*alpha){ //adjacent edge{
+               color = interpolateT(a.color, b.color, c.color, 	
+			   			implicitEq(b,c,p)/(float)alpha, 
+			   			implicitEq(a,c,p)/(float)beta, 
+						implicitEq(a,b,p)/(float)gamma);
                myCanvas.set(ht,wd,color);
             }
          }
@@ -210,4 +199,5 @@ void canvas::drawRec(int x, int y, int width, int height) {
 	drawLine(p3, p4);
 
 }
+
 

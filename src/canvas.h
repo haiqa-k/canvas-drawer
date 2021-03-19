@@ -56,9 +56,6 @@ namespace agl
       // Draw a line from point a to point b
       void drawLine(point a, point b);
 
-      //Draw a rectangle between the vertices
-      void drawRec(int a, int b, int c, int d);
-
       //Used for colored line
       ppm_pixel interpolateL(ppm_pixel c1, ppm_pixel c2, float t);
 
@@ -71,7 +68,10 @@ namespace agl
       //Used to draw triangle
       void barycentricFill(point a, point b, point c);
 
+      //Draws a rectangle with the vertices as parameters
+      void drawRec(int a, int b, int c, int d);
 
+     
    };
 }
 

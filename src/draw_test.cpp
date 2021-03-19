@@ -38,6 +38,11 @@ int main(int argc, char** argv)
    drawer.end();
    drawer.save("line-color-interpolation.png");
 
+   //test rectangle
+   drawer.background(0, 0, 0);
+   drawer.drawRec(50, 50, 60, 80);
+   drawer.save("rectangle.png");
+
    // test triangle with interpolation
    drawer.background(0, 0, 0);
    drawer.begin(TRIANGLES);

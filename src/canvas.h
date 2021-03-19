@@ -5,11 +5,24 @@
 #include <vector>
 #include "ppm_image.h"
 
+using namespace std;
+
 namespace agl
 {
+   struct point {
+      int x;
+      int y;
+      ppm_pixel color;
+   };
    enum PrimitiveType {UNDEFINED, LINES, TRIANGLES};
    class canvas
    {
+   private:
+      ppm_pixel _color;
+      ppm_image myCanvas;
+      PrimitiveType reqType;
+      vector<point> v;
+   
    public:
       canvas(int w, int h);
       virtual ~canvas();
@@ -40,11 +53,26 @@ namespace agl
       // Fill the canvas with the given background color
       void background(unsigned char r, unsigned char g, unsigned char b);
 
-   private:
-      ppm_image _canvas;
+      // Draw a line from point a to point b
+      void drawLine(point a, point b);
+
+      //Draw a rectangle between the vertices
+      void drawRec(int a, int b, int c, int d);
+
+      //Used for colored line
+      ppm_pixel interpolateL(ppm_pixel c1, ppm_pixel c2, float t);
+
+      //Used for colored triangle
+      ppm_pixel interpolateT(ppm_pixel c1, ppm_pixel c2, ppm_pixel c3, float alpha, float beta, float gamma);
+
+      //Implicit line eq
+      int implicitEq(point a, point b, point p);
+
+      //Used to draw triangle
+      void barycentricFill(point a, point b, point c);
+
+
    };
 }
 
 #endif
-
-
